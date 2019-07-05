@@ -5,7 +5,9 @@ import { Button } from './components/common/Button';
 
 class ResetPinScreen extends Component {
 
-    this.state = {pin : ''};
+    componentWillMount() {
+        this.state = { pin : '' };
+    }
 
     render() {
         return (
@@ -18,7 +20,7 @@ class ResetPinScreen extends Component {
                 </View>
                 <TextInput style={{height: 40}}
                     placeholder="Enter PIN here"
-                    onChangeText={(pin) => this.setState({pin})/>
+                    onChangeText={(pin) => this.setState({pin})}/>
                 <Button onPress={() => this.openResetPasswordLayout()}>Reset Pin</Button>
                 </View>
             </View>

@@ -8,18 +8,24 @@ import { ErrorText } from "./components/common/ErrorText";
 
 class PinScreen extends Component {
     //This need to be get from internal storage by decrypted, where it should be save as encrypted
-    PIN_CODE = 7890;
-    this.state = { pin : [], isCircleActive = [false, false, false, false], attempts: 0, errorText : '' }
-    const {navigate} = this.props.navigation;
+
+    componentWillMount() {
+        this.state = { pin : [], isCircleActive : [false, false, false, false], attempts: 0, errorText : '' }
+        const {navigate} = this.props.navigation;
+    }
 
     renderPasswordView(){
 
         //Check how many pin numbers were typed
         index = 0;
-        this.state.pin.map(item =>
-            this.state.isCircleActive[index] = true;
+        this.state.pin.map(item => {
+            
+                var isa = this.isCircleActive;
+                isa[index] = true;
+                this.setState({isCircleActive: isa});
                 index++;
-            );
+            }
+        );
 
         return <PasswordView circleCount={this.state.isCircleActive}/>
     }
@@ -29,7 +35,7 @@ class PinScreen extends Component {
         if(this.state.pin.length == 4){
             //Show block message
             if(this.state.attempts == 3){
-                this.state.errorText = 'PIN incorrect. Next incorrect attempt will block you.'
+                this.setState({errorText : 'PIN incorrect. Next incorrect attempt will block you.'});
             }else if(this.state.attempts > 3){
                 //Show block screen
             }
@@ -38,7 +44,7 @@ class PinScreen extends Component {
             validatePassword(pin);
 
             //Empty previous password
-            this.state = { pin : [] }
+            this.setState({pin : []});
         }
     }
 
@@ -48,7 +54,7 @@ class PinScreen extends Component {
             openMainLayout();
         }else{
             atempts++;
-            this.state.errorText = 'PIN incorrect.'
+            this.setState({errorText : 'PIN incorrect.'});
         }
     }
 
@@ -69,7 +75,7 @@ class PinScreen extends Component {
                 {this.renderPasswordView()}
                 <ErrorText textContent={'Pin Incorrect'}/>
                 <NumberPadView onPress={() => this.processPassword()}/>
-                <CommonText>Forgot Pin?</Button>
+                <CommonText>Forgot Pin?</CommonText>
                 <Button onPress={() => this.openResetPasswordLayout()}>Tap here to reset</Button>
             </View>
         );
