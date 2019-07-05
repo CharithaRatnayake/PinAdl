@@ -6,13 +6,14 @@ import Circle from './common/Circle';
 //Make a component
 class PasswordView extends Component {
 
-    state = { items: [] };
+    state = { items: [this.props.isCircleActive] };
 
     componentWillMount() {
         
     }
 
     renderItems() {
+
         return this.state.items.map(item => 
             <Circle isActive={item} />
         );
@@ -23,12 +24,21 @@ class PasswordView extends Component {
         console.log(this.state);
         
         return (
-            <View>
-                {/* {this.renderItems()} */}
+            <View style={ styles.passwordLayoutStyle }>
+                {this.renderItems()}
             </View>
         );
     }
 }
+
+const styles = {
+    passwordLayoutStyle: {
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1
+    }
+};
 
 //Make the component available to other parts
 export default PasswordView;

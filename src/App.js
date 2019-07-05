@@ -8,34 +8,18 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
 import PinScreen from './PinScreen';
+import ResetPinScreen from './ResetPinScreen';
+import MainScreen from './MainScreen';
 
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-        <PinScreen />
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+//init navigation
+const MainNavigator = createStackNavigator({
+    PinScreen: {screen: PinScreen},
+    ResetPinScreen: {screen: ResetPinScreen},
+    MainScreen: {screen: MainScreen}
 });
+
+const App = createAppContainer(MainNavigator);
+
+export default App;
